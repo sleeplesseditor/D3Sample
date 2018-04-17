@@ -18,3 +18,7 @@ SVG Element Creation
 
 ![screen shot 2018-04-17 at 15 22 25](https://user-images.githubusercontent.com/25869284/38875840-32e75b4c-4253-11e8-8850-7ea05297703e.png)
 Pie Chart Creation
+
+
+![screen shot 2018-04-17 at 15 26 13](https://user-images.githubusercontent.com/25869284/38876089-b57abd74-4253-11e8-8a84-e01dfa581434.png)
+Line Chart Creation
