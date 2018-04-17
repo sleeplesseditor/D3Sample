@@ -1,31 +1,44 @@
-var data = [80, 100, 56, 120, 180, 30, 40, 120, 160];
+var data = [
+    {"platform": "Android", "percentage": 40.11}, 
+    {"platform": "Windows", "percentage": 36.69},
+    {"platform": "iOS", "percentage": 13.06}
+];
 
-var svgWidth = 500, svgHeight = 300;
-
+var svgWidth = 500, svgHeight = 300, radius =  Math.min(svgWidth, svgHeight) / 2;
 var svg = d3.select('svg')
     .attr("width", svgWidth)
     .attr("height", svgHeight);
 
-var xScale = d3.scaleLinear()
-    .domain([0, d3.max(data)])
-    .range([0, svgWidth]);
+//Create group element to hold pie chart    
+var g = svg.append("g")
+    .attr("transform", "translate(" + radius + "," + radius + ")") ;
 
-var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data)])
-    .range([0, svgHeight]);
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-var x_axis = d3.axisBottom()
-    .scale(xScale);
+var pie = d3.pie().value(function(d) { 
+     return d.percentage; 
+});
 
-var y_axis = d3.axisLeft()
-    .scale(yScale);
+var path = d3.arc()
+    .outerRadius(radius)
+    .innerRadius(0);
+ 
+var arc = g.selectAll("arc")
+    .data(pie(data))
+    .enter()
+    .append("g");
 
-svg.append("g")
-    .attr("transform", "translate(50, 10)")
-    .call(y_axis);
-
-var xAxisTranslate = svgHeight - 20;
-
-svg.append("g")
-    .attr("transform", "translate(50, " + xAxisTranslate +")")
-    .call(x_axis);
+arc.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.percentage); });
+        
+var label = d3.arc()
+    .outerRadius(radius)
+    .innerRadius(0);
+            
+arc.append("text")
+    .attr("transform", function(d) { 
+        return "translate(" + label.centroid(d) + ")"; 
+    })
+    .attr("text-anchor", "middle")
+    .text(function(d) { return d.data.platform+":"+d.data.percentage+"%"; });
