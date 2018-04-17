@@ -2,3 +2,17 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+h1 {
+    font-family: arial;
+    margin: 10px;
+}
+
+.bar-chart {
+    background-color: #C7D9D9;
+    margin: 10px;
+}
+
+.bar {
+    fill: #115D8C;
+}
